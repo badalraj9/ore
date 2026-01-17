@@ -1,0 +1,12 @@
+fastapi==0.109.0
+uvicorn==0.27.0
+spacy==3.7.2
+nltk==3.8.1
+pymupdf==1.23.8
+pdfplumber==0.10.3
+arxiv==2.1.0
+httpx==0.26.0
+beautifulsoup4==4.12.3
+pydantic==1.10.13
+python-multipart==0.0.9
+sqlalchemy==2.0.25
