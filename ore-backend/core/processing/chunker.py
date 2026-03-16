@@ -5,21 +5,21 @@ import unicodedata
 from typing import List, Dict, Any
 from sqlalchemy.orm import Session
 from database import Chunk, Paper, SessionLocal
+from config import settings
 
 class SectionAwareChunker:
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm", disable=["ner", "parser"])
         self.nlp.add_pipe("sentencizer")
 
-        # Configuration rules: (target_tokens, overlap_tokens)
         self.rules = {
-            "abstract": (400, 0), # Keep whole if possible
-            "introduction": (350, 40),
-            "methods": (400, 40),
-            "results": (500, 50),
-            "discussion": (400, 40),
-            "conclusion": (350, 40),
-            "default": (300, 30)
+            "abstract": (settings.CHUNK_SIZES["abstract"], settings.CHUNK_OVERLAPS["abstract"]),
+            "introduction": (settings.CHUNK_SIZES["introduction"], settings.CHUNK_OVERLAPS["introduction"]),
+            "methods": (settings.CHUNK_SIZES["methods"], settings.CHUNK_OVERLAPS["methods"]),
+            "results": (settings.CHUNK_SIZES["results"], settings.CHUNK_OVERLAPS["results"]),
+            "discussion": (settings.CHUNK_SIZES["discussion"], settings.CHUNK_OVERLAPS["discussion"]),
+            "conclusion": (settings.CHUNK_SIZES["conclusion"], settings.CHUNK_OVERLAPS["conclusion"]),
+            "default": (settings.CHUNK_SIZES["default"], settings.CHUNK_OVERLAPS["default"])
         }
 
     def clean_text(self, text: str) -> str:
